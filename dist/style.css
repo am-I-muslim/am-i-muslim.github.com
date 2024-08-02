@@ -11,14 +11,36 @@
   height: 52px;
 }
 
-.image-content{
+.image-content {
   width: 100%;
   max-height: 95vh;
 }
+
+/* fonts ----------------------------------------------- */
 
 .vazirmatn {
   font-family: "Vazirmatn", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+/* animations ----------------------------------------- */
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-duration: 0.4s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

@@ -28,7 +28,7 @@ proc imgContentHtml(pfp, img: Url, style: ImageStyle, maxWidth: int): Element =
     tr      = createElement("tr",   {"class": "",})
     td1     = createElement("td",   {"class": "align-middle text-center"})
     image   = createElement("img",  {
-                                      "class": "image-content " & iff(style == isPixelArt, "pixel-art", ""), 
+                                      "class": "fade-in image-content " & iff(style == isPixelArt, "pixel-art", ""), 
                                       "src": img,
                                       "style": "max-width: " & $maxWidth &  "px;",
                                     })
@@ -42,6 +42,7 @@ proc imgContentHtml(pfp, img: Url, style: ImageStyle, maxWidth: int): Element =
       avatar
   tr
 
+const publicDir = "../public/"
 
 proc tell(ctx: StoryCtx, container: Element) = 
   if ctx.key != "done":
@@ -58,14 +59,14 @@ proc tell(ctx: StoryCtx, container: Element) =
       case msg.content.kind
       of ckText:
         var e = Env()
-        let contentEl = textContentHtml("../public/" & chara.pfp)
+        let contentEl = textContentHtml(publicDir & chara.pfp)
         appendChild container, contentEl
         mockKeyboardType e, q(contentEl, ".text-wrapper"), 40, cstring msg.content.text
       
       of ckImage:
         let contentEl = imgContentHtml(
-          "../public/" & chara.pfp, 
-          "../public/" & msg.content.imageUrl, 
+          publicDir & chara.pfp, 
+          publicDir & msg.content.imageUrl, 
           msg.content.style,
           msg.content.maxWidth,
         )
@@ -90,7 +91,9 @@ proc previe {.exportc.} =
 # -------------------------------------
 
 func toNarrative(s: string): Narrative = 
-  discard
+  discard """
+ 
+  """
 
 when isMainModule:
   prepare()

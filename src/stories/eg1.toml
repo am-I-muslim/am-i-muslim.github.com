@@ -1,0 +1,33 @@
+title = ""
+
+[characters.brain]
+name = "brain"
+image = "brain.ong"
+
+[characters.you]
+name = "you"
+image = "you.ong"
+
+
+[scenes.start]
+type = "text"
+who = "brain"
+next = "img"
+message = """
+  I've been waiting for you!
+"""
+
+[scenes.img]
+type = 'image'
+who = "brain"
+width = 400
+pixel-art = true
+next = "wow"
+
+[scenes.wow]
+type = "text"
+who = "you"
+next = "done"
+message = """
+  no way!
+"""
