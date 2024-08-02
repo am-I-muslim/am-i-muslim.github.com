@@ -6,3 +6,22 @@ up.macro('[smooth-link]', link => {
   link.setAttribute('up-duration', '400')
   link.setAttribute('up-follow', '')
 })
+
+function toPersianNumber(string) {
+  return {
+    "0": "۰",
+    "1": "۱",
+    "2": "۲",
+    "3": "۳",
+    "4": "۴",
+    "5": "۵",
+    "6": "۶",
+    "7": "۷",
+    "8": "۸",
+    "9": "۹",
+  }[string] || string
+}
+
+up.compiler('[fa-digits]', element => {
+  element.innerHTML = element.innerHTML.replace(/\d/gmi, toPersianNumber)
+})
