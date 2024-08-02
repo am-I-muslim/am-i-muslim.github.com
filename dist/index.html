@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Board</title>
+  <link rel="icon" href="favicon.png" />
+
+  <link rel="stylesheet" href="https://bootswatch.com/5/yeti/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="./script.js" defer></script>
+</head>
+
+<body class="">
+
+  <nav class="position-fixed top-0 start-50 translate-middle-x mt-2 btn-group shadow-sm" role="group">
+    <!-- menu -->
+    <!-- prev -->
+    <!-- next -->
+    <!-- stop/play -->
+    <!-- skip -->
+
+    <button class="btn btn-outline-primary" onclick="previe()">
+      <i class="bi bi-caret-left-fill"></i>
+    </button>
+  
+    <button class="btn btn-outline-primary" onclick="nextie()">
+      <i class="bi bi-caret-right-fill"></i>
+    </button>
+  </nav>
+
+  <div class="container">
+
+    <table class="table mt-5 vazirmatn">
+      <tbody id="story-table-container">
+      </tbody>
+    </table>
+
+  </div>
+</body>
+
+</html>

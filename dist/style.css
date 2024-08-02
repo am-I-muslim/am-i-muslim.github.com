@@ -1,0 +1,24 @@
+.pixel-art {
+  image-rendering: crisp-edges;
+}
+
+.avatar-cell {
+  width: 1%;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+}
+
+.image-content{
+  width: 100%;
+  max-height: 95vh;
+}
+
+.vazirmatn {
+  font-family: "Vazirmatn", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
