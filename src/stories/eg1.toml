@@ -32,3 +32,11 @@ next = "done"
 message = """
   no way!
 """
+
+[scenes.tests]
+type = "choices"
+who = "you"
+choices = [
+  ["pretend you've not seen him", "scene.id"],
+  ["pretend you've not seen him", "scene.id"],
+]

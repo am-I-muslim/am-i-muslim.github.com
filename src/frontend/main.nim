@@ -8,13 +8,17 @@ import ./[types, page, utils]
 proc prepare =
   randomize()
 
-proc textContentHtml(pfp: Url): Element = 
+
+func msgId(sceneId: string): string = 
+  "scene-" & sceneId
+
+proc textContentHtml(sceneid: string, pfp: Url): Element = 
   let 
-    tr      = createElement("tr",   {"class": "",})
+    tr      = createElement("tr",   {"id": msgId sceneid })
     td1     = createElement("td",   {"class": "align-middle", "dir": "auto"})
     span    = createElement("span", {"class": "text-wrapper text-break"})
     td2     = createElement("td",   {"class": "avatar-cell"})
-    avatar  = createElement("img",  {"class": "pixel-art avatar", "src": pfp})
+    avatar  = createElement("img",  {"class": "pixel-art avatar fade-in", "src": pfp})
 
   appendTree tr:
     td1:
@@ -23,9 +27,9 @@ proc textContentHtml(pfp: Url): Element =
       avatar
   tr
 
-proc imgContentHtml(pfp, img: Url, style: ImageStyle, maxWidth: int): Element = 
+proc imgContentHtml(sceneid: string, pfp, img: Url, style: ImageStyle, maxWidth: int): Element = 
   let 
-    tr      = createElement("tr",   {"class": "",})
+    tr      = createElement("tr",   {"id": msgId sceneid })
     td1     = createElement("td",   {"class": "align-middle text-center"})
     image   = createElement("img",  {
                                       "class": "fade-in image-content " & iff(style == isPixelArt, "pixel-art", ""), 
@@ -33,7 +37,7 @@ proc imgContentHtml(pfp, img: Url, style: ImageStyle, maxWidth: int): Element =
                                       "style": "max-width: " & $maxWidth &  "px;",
                                     })
     td2     = createElement("td",   {"class": "avatar-cell"})
-    avatar  = createElement("img",  {"class": "pixel-art avatar", "src": pfp})
+    avatar  = createElement("img",  {"class": "pixel-art avatar fade-in", "src": pfp})
 
   appendTree tr:
     td1:
@@ -41,6 +45,27 @@ proc imgContentHtml(pfp, img: Url, style: ImageStyle, maxWidth: int): Element =
     td2:
       avatar
   tr
+
+proc choisesHtml(sceneid: string, pfp: string, options: seq[OptionItem]): Element = 
+  let 
+    tr            = createElement("tr",   {"id": msgId sceneid })
+    td1           = createElement("td",   {"class": "align-middle text-center"})
+    choiceWrapper = createElement("ul",   {"class": "btn-group-vertical my-2"})
+    td2           = createElement("td",   {"class": "avatar-cell"})
+    avatar        = createElement("img",  {"class": "pixel-art avatar fade-in", "src": pfp})
+
+  for i, o in options:
+    let li = createElement("li", {"class": "btn btn-outline-primary", "onclick": "choose_option( " & $i & " )"})
+    li.innerText = cstring o.text
+    appendChild choiceWrapper, li
+
+  appendTree tr:
+    td1:
+      choiceWrapper
+    td2:
+      avatar
+  tr
+
 
 const publicDir = "../public/"
 
@@ -59,12 +84,13 @@ proc tell(ctx: StoryCtx, container: Element) =
       case msg.content.kind
       of ckText:
         var e = Env()
-        let contentEl = textContentHtml(publicDir & chara.pfp)
+        let contentEl = textContentHtml(ctx.key, publicDir & chara.pfp)
         appendChild container, contentEl
         mockKeyboardType e, q(contentEl, ".text-wrapper"), 40, cstring msg.content.text
       
       of ckImage:
         let contentEl = imgContentHtml(
+          ctx.key,
           publicDir & chara.pfp, 
           publicDir & msg.content.imageUrl, 
           msg.content.style,
@@ -74,26 +100,43 @@ proc tell(ctx: StoryCtx, container: Element) =
       
       ctx.key = msg.next
     
-    else: 
-      discard
+    of mkOptions:
+      let contentEl = choisesHtml(ctx.key, publicDir & chara.pfp, msg.options)
+      appendChild container, contentEl
 
 
 var ctx: StoryCtx
 
+
+template currentScene: untyped =
+  ctx.story.narrative[ctx.history[^1]]
+  
+
+proc canGoNext: bool = 
+  0 == ctx.history.len or 
+  currentScene.msg.kind != mkOptions
+
+proc canGoPrev: bool = 
+  0 < ctx.history.len
+
+
 proc nextie {.exportc.} = 
-  tell ctx, q"#story-table-container"
+  if canGoNext():
+    tell ctx, q"#story-table-container"
 
 proc previe {.exportc.} = 
-  if 0 < ctx.history.len:
+  if canGoPrev():
     ctx.key = pop ctx.history
     removeLastChild q"#story-table-container"
 
+proc choose_option(optionIndex: int) {.exportc.} = 
+  ctx.key = currentScene.msg.options[optionIndex].next
+  tell ctx, q"#story-table-container"
+
 # -------------------------------------
 
-func toNarrative(s: string): Narrative = 
-  discard """
- 
-  """
+# func toNarrative(s: string): Narrative = 
+#   discard
 
 when isMainModule:
   prepare()
@@ -109,43 +152,64 @@ when isMainModule:
         name: "you",
         pfp:  "ave.png",
       ),
+      "no one": Character(
+        name: "no one",
+        pfp:  "nothing.png",
+      ),
+      "prophet": Character(
+        name: "prophet",
+        pfp:  "prophet.png",
+      ),
     },
     narrative: toTable {
       "start": Scene(
-        id:        "start", 
-        character: "brain",
-        msg:        Message(
-          kind: mkContent,
-          next: "p1",
-          content: Content(
-            kind: ckText,
-            text: strip """
-              سلام. خوبی؟ منتظرت بودم
-            """,
-          )
-        )
-      ),
-      "p1": Scene(
-        id:        "p1", 
+        id:        "selfie", 
         character: "you",
         msg:        Message(
           kind: mkContent,
-          next: "p2",
+          next: "selfie",
           content: Content(
             kind: ckText,
             text: strip """
-              نه بابا! راست میگی؟
-               کاشت رو بیار ماست بگیر خخخخخخخخخخخخخخخخخخخخخخخخخخخخخخخ
+              پوففففف بالاخره بعد از کلی درس و چیزای الکی اومدم بیرون یکم هوا بخورم              
             """,
           )
         )
       ),
-      "p2": Scene(
-        id:        "p2", 
-        character: "brain",
+      "selfie": Scene(
+        id:        "start", 
+        character: "no one",
         msg:        Message(
           kind: mkContent,
-          next: "done",
+          next: "good-weather",
+          content: Content(
+            kind: ckImage,
+            style: isPixelArt,
+            maxWidth: 600,
+            imageUrl: "self.png",
+          ),
+        )
+      ),
+      "good-weather": Scene(
+        id:        "good-weather", 
+        character: "you",
+        msg:        Message(
+          kind: mkContent,
+          next: "3rd-view",
+          content: Content(
+            kind: ckText,
+            text: strip """
+              واقعا هوای خوبیه امروز
+            """
+          )
+        )
+      ),
+      "3rd-view": Scene(
+        id:        "3rd-view", 
+        character: "no one",
+        msg:        Message(
+          kind: mkContent,
+          next: "saw-other-one",
           content: Content(
             kind: ckImage,
             style: isPixelArt,
@@ -154,7 +218,57 @@ when isMainModule:
           )
         )
       ),
-
+      "saw-other-one": Scene(
+        id:        "saw-other-one", 
+        character: "you",
+        msg:        Message(
+          kind: mkContent,
+          next: "what-to-do",
+          content: Content(
+            kind: ckText,
+            text: strip """
+              عه این پسره!
+              این بشر همکلاسی منه.
+              حالا چیکار کنم؟
+            """
+          )
+        )
+      ),
+      "what-to-do": Scene(
+        id:        "what-to-do", 
+        character: "brain",
+        msg:        Message(
+          kind: mkOptions,
+          options: @[
+            OptionItem(
+              text:"ولش کن، سرت رو بنداز پایین و رد شو",
+              next:"hadith",
+            ),
+            OptionItem(
+              text:"بزار ببینم انقد ادب داره که سلام کنه؟",
+              next:"hadith",
+            ),
+            OptionItem(
+              text:"سلام کن",
+              next:"hadith",
+            ),
+          ]
+        )
+      ),
+      "hadith": Scene(
+        id:        "hadith", 
+        character: "prophet",
+        msg:        Message(
+          kind: mkContent,
+          next: "done",
+          content: Content(
+            kind: ckImage,
+            style: isPixelArt,
+            maxWidth: 800,
+            imageUrl: "salam-hadis.jpg",
+          )
+        )
+      ),
     },
   )
 
@@ -165,7 +279,6 @@ when isMainModule:
 
   window.addEventListener "keydown", proc (e: Event) = 
     let kc = cast[KeyboardEvent](e).keycode
-    echo kc
     case kc
     of 37: previe() # left
     of 39: nextie() # right

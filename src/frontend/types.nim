@@ -41,11 +41,11 @@ type # ----- structures
       maxWidth*: Natural
       imageUrl*: Url
 
-  Action*  = object
-    case kind*: Actionkind
-    of akStateMutation:
-      key*:   string
-      value*: string
+  # Action*  = object
+  #   case kind*: Actionkind
+  #   of akStateMutation:
+  #     key*:   string
+  #     value*: string
 
   Options* = seq[OptionItem]
 
@@ -59,10 +59,10 @@ type # ----- structures
       options*: Options
 
   OptionItem* = object
-    emoji*:    Emoji
-    actions*:  seq[Action]
-    next*:     SceneId
+    # emoji*:    Emoji
+    # actions*:  seq[Action]
     text*:     string
+    next*:     SceneId
 
   Scene*       = ref object
     id*:        SceneId
@@ -84,11 +84,5 @@ type # ----- structures
     story*:   Story
     key*:     SceneId
     history*: seq[SceneId]
-    choices*: seq[Index]
-    states*:  Table[string, string]
-
-
-  Config* = ref object
-    typeDelay*: Natural # ms
-    el*:        Element
-    # lang
+    # choices*: seq[Index]
+    # states*:  Table[string, string]
