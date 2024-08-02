@@ -19,7 +19,7 @@ function toPersianNumber(string) {
     "7": "۷",
     "8": "۸",
     "9": "۹",
-  }[string] || string
+  }[string]
 }
 
 up.compiler('[fa-digits]', element => {
