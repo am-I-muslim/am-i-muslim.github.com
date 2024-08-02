@@ -12,7 +12,7 @@ proc textContentHtml(pfp: Url): Element =
   let 
     tr      = createElement("tr",   {"class": "",})
     td1     = createElement("td",   {"class": "align-middle", "dir": "auto"})
-    span    = createElement("span", {"class": "text-wrapper"})
+    span    = createElement("span", {"class": "text-wrapper text-break"})
     td2     = createElement("td",   {"class": "avatar-cell"})
     avatar  = createElement("img",  {"class": "pixel-art avatar", "src": pfp})
 
@@ -81,12 +81,12 @@ proc tell(ctx: StoryCtx, container: Element) =
 var ctx: StoryCtx
 
 proc nextie {.exportc.} = 
-  # TODO fast next click ==> skip
   tell ctx, q"#story-table-container"
 
 proc previe {.exportc.} = 
-  ctx.key = pop ctx.history
-  removeLastChild q"#story-table-container"
+  if 0 < ctx.history.len:
+    ctx.key = pop ctx.history
+    removeLastChild q"#story-table-container"
 
 # -------------------------------------
 
@@ -134,7 +134,8 @@ when isMainModule:
           content: Content(
             kind: ckText,
             text: strip """
-              نه بابا! راست میگی؟ کاشت رو بیار ماست بگیر خخخخخخخخخخخخخخخخخخخخخخخخخخخخخخخ
+              نه بابا! راست میگی؟
+               کاشت رو بیار ماست بگیر خخخخخخخخخخخخخخخخخخخخخخخخخخخخخخخ
             """,
           )
         )
@@ -160,3 +161,12 @@ when isMainModule:
   ctx = StoryCtx(
     story: story,
     key: story.starter)
+
+
+  window.addEventListener "keydown", proc (e: Event) = 
+    let kc = cast[KeyboardEvent](e).keycode
+    echo kc
+    case kc
+    of 37: previe() # left
+    of 39: nextie() # right
+    else: discard

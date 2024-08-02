@@ -5,45 +5,95 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Board</title>
+  <title>{{title}}</title>
   <link rel="icon" href="favicon.png" />
 
   <link rel="stylesheet" href="https://bootswatch.com/5/yeti/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"> -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="style.css">
+
 </head>
 
-<body class="" style="background-color: #fcfcfc;">
+<!-- XXX style="background-color -->
 
-  <div class="container d-flex flex-column align-items-center">
+<body>
 
-    <img src="../public/boy-girl-praying.jfif" alt="" class="" style="height: 800px; max-height: 80vh;">
+  <div style="background-color: #fcfcfc;">
+    <div class="container d-flex flex-column align-items-center w-100 vh-100">
 
-    <main class="">
-      <h3 class="vazirmatn">
-        <b><i>
-            فقط
-            تو را
-          </i></b>
-        میپرستیم و
+      <!-- XXX image -->
+      <img src="../public/boy-girl-praying.jfif" alt="" class="" style="height: 800px; max-height: 80vh;">
 
-        <b><i>
-            فقط از تو
-          </i></b>
-        کمک میخواهیم
+      <main class="">
+        <!-- XXX text -->
+
+        <h3 class="vazirmatn">
+          <b><i>
+              فقط
+              تو را
+            </i></b>
+          میپرستیم و
+
+          <b><i>
+              فقط از تو
+            </i></b>
+          کمک میخواهیم
+        </h3>
+
+        <!-- XXX cite -->
+        <cite class="vazirmatn">
+          سوره 1 آیه 5
+        </cite>
+
+      </main>
+
+      <button class="btn btn-outline-primary btn-lg mt-2">
+        <i class="bi bi-chevron-double-down"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-light">
+    <div class="container py-4">
+
+      <h3 class="fa text-end">
+        <span dir="rtl" class="text-secondary">
+          #
+          داستان ها
+        </span>
+        <!-- <i class="bi bi-hash"></i> -->
       </h3>
-      <cite class="vazirmatn">
-        سوره 1 آیه 5
-      </cite>
 
-    </main>
+      <table class="table table-hover fa">
+        <thead>
+          <tr class="">
+            <th class="">تگ ها</th>
+            <th class="">موضوع</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="" dir="rtl">
+            <td class="d-flex">
+              <div class="btn btn-sm btn-outline-primary fa">
+                اخلاق
+              </div>
+            </td>
+            <td>
+              سلام کردن
+              👋
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
+    </div>
   </div>
 
 </body>

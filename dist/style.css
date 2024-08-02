@@ -1,5 +1,18 @@
 .pixel-art {
-  image-rendering: crisp-edges;
+  image-rendering: optimizeSpeed;
+  /*                     */
+  image-rendering: -moz-crisp-edges;
+  /* Firefox             */
+  image-rendering: -o-crisp-edges;
+  /* Opera               */
+  image-rendering: -webkit-optimize-contrast;
+  /* Chrome (and Safari) */
+  image-rendering: pixelated;
+  /* Chrome as of 2019   */
+  image-rendering: optimize-contrast;
+  /* CSS3 Proposed       */
+  -ms-interpolation-mode: nearest-neighbor;
+  /* IE8+                */
 }
 
 .avatar-cell {
@@ -18,11 +31,13 @@
 
 /* fonts ----------------------------------------------- */
 
-.vazirmatn {
+.fa {
   font-family: "Vazirmatn", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+
+  text-align: right;
 }
 
 /* animations ----------------------------------------- */

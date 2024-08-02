@@ -1,5 +1,6 @@
 title = ""
 
+[characters]
 [characters.brain]
 name = "brain"
 image = "brain.ong"
@@ -8,7 +9,7 @@ image = "brain.ong"
 name = "you"
 image = "you.ong"
 
-
+[scenes]
 [scenes.start]
 type = "text"
 who = "brain"
