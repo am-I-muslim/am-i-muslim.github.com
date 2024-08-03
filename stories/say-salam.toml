@@ -57,20 +57,18 @@ message = """
 
 [scenes.what-to-do]
 character = "brain"
-options = [
-  [
-    "ولش کن، سرت رو بنداز پایین و رد شو",
-    "hadith",
-  ],
-  [
-    "بزار ببینم انقد ادب داره که سلام کنه؟",
-    "hadith",
-  ],
-  [
-    "سلام کن",
-    "hadith",
-  ],
-]
+
+[[scenes.what-to-do.options]]
+label =  "ولش کن، سرت رو بنداز پایین و رد شو"
+next = "hadith"
+
+[[scenes.what-to-do.options]]
+label = "بزار ببینم انقد ادب داره که سلام کنه؟"
+next = "hadith"
+
+[[scenes.what-to-do.options]]
+label = "سلام کن"
+next = "hadith"
 
 [scenes.hadith]
 who = "prophet"

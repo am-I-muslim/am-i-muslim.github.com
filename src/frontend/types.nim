@@ -76,6 +76,7 @@ type # ----- structures
   Narrative*  = Table[SceneId, Scene]
 
   Story*      = object
+    title*:      string
     starter*:    SceneId
     characters*: Table[string, Character] # character name => profile picture
     narrative*:  Narrative

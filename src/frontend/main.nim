@@ -12,7 +12,18 @@ var ctx: StoryCtx
 # -------------------------------------
 
 proc parseStory(t: TomlValueRef): Story = 
-  console.log t
+  echo t.kind
+
+  for k, val in t:
+    case k
+    of   "title":
+    of   "characters":
+    of   "scenes"
+
+  # TomlValueKind.Int   
+  # TomlValueKind.String 
+  # TomlValueKind.Array  
+  # TomlValueKind.Table  
 
 proc parseToml(s: string): TomlValueRef = 
   parsetoml.parseString s
