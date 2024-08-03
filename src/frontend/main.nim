@@ -1,4 +1,4 @@
-import std/[strutils, tables, random]
+import std/[strutils, tables, random, tables, sequtils]
 import std/[jsconsole, jsffi, dom]
 
 import parsetoml
@@ -11,19 +11,82 @@ var ctx: StoryCtx
 
 # -------------------------------------
 
+template parserKeyErr(msg): untyped =
+  raise newException(KeyError, msg)
+  
+
+func parseCharacter(t: TomlValueRef): Character = 
+  for prop, value in t.getTable:
+    case prop
+    of "pfp", "image":
+      result.pfp = value.getStr
+    else:
+      parserKeyErr "invalid key under character: " & prop 
+
+func parseOptionItem(t: TomlValueRef): OptionItem = 
+  for prop, value in t.getTable:
+    case prop
+    of "next": 
+      result.next = value.getStr
+    of "text": 
+      result.text = value.getStr
+    else:
+      parserKeyErr "invalid key under option-item: " & prop
+  
+func parseScene(t: TomlValueRef): Scene = 
+  if   "text"  in t: 
+    result.msg = Message(kind: mkContent, content: Content(kind: ckText))
+  elif "image" in t: 
+    result.msg = Message(kind: mkContent, content: Content(kind: ckImage))
+  elif "options" in t: 
+    result.msg = Message(kind: mkOptions, options: @[])
+  else:
+    parserKeyErr "invalid scene content type"
+    
+  
+  for prop, value in t.getTable:
+    case prop
+    of "who":
+      result.character = value.getStr
+    of "next":
+      result.msg.next = value.getStr
+    
+    of "text":
+      result.msg.content.text = value.getStr
+    
+    of "image": 
+      result.msg.content.imageUrl = value.getStr
+    of "width":
+      result.msg.content.maxWidth = value.getInt
+    of "pixel-art": 
+      result.msg.content.style = isPixelArt
+    
+    of "options":
+      for op in value.getElems:
+        result.msg.options.add parseOptionItem op
+
+    else:
+      parserKeyErr "invalid key under scene: " & prop 
+
+
 proc parseStory(t: TomlValueRef): Story = 
-  echo t.kind
+  result = Story()
 
-  for k, val in t:
+  for k, val in t.tableVal:
     case k
-    of   "title":
-    of   "characters":
-    of   "scenes"
+    of "title":
+      result.title = getStr val
+    
+    of "characters":
+      for id, ch in val.getTable:
+        result.characters[id] = parseCharacter ch
 
-  # TomlValueKind.Int   
-  # TomlValueKind.String 
-  # TomlValueKind.Array  
-  # TomlValueKind.Table  
+    of "scenes":
+      for id, sc in val.getTable:
+        result.scenes[id] = parseScene sc
+    
+    else:
+      parserKeyErr "invalid key under story toml data: " & k
 
 proc parseToml(s: string): TomlValueRef = 
   parsetoml.parseString s
@@ -98,7 +161,7 @@ const publicDir = "../public/"
 proc tell(ctx: StoryCtx, container: Element) = 
   if ctx.key != "done":
     let 
-      scene = ctx.story.narrative[ctx.key]
+      scene = ctx.story.scenes[ctx.key]
       chara = ctx.story.characters[scene.character]
       msg   = scene.msg
 
@@ -132,7 +195,7 @@ proc tell(ctx: StoryCtx, container: Element) =
 
 
 template currentScene: untyped =
-  ctx.story.narrative[ctx.history[^1]]
+  ctx.story.scenes[ctx.history[^1]]
   
 
 proc canGoNext: bool = 
@@ -158,7 +221,7 @@ proc choose_option(optionIndex: int) {.exportc.} =
 
 # -------------------------------------
 
-proc downloadFrom(url: cstring, succeed: proc(content: cstring), failed: proc()) {.importc.}
+proc downloadFrom(url: cstring, succeed: proc(content: cstring), failed: proc(err: JsObject)) {.importc.}
 
 proc storyFileUrl(storyName: cstring): cstring = 
   c"//"                & 
@@ -173,33 +236,29 @@ proc downloadStory =
     
   proc ifSucceed(content: cstring) = 
     ctx = StoryCtx(
-      story: parseStory parseToml content,
+      story: parseStory parseToml $content,
       key: "start")
 
-  proc ifFailed = 
-    echo "cannot download story ..."
+  proc ifFailed(e: JsObject) = 
+    console.log e
+    echo "error ..."
 
   downloadFrom url, ifSucceed, ifFailed
 
-proc runApp {.exportc.} = 
+proc runStoryTeller {.exportc.} = 
   prepare()
   downloadStory()
 
 
-proc onkeydownEventHandler(e: Event) = 
+proc onkeydownEventHandler(e: Event) =
   let kc = cast[KeyboardEvent](e).keycode
   case kc
   of 37: previe() # left
   of 39: nextie() # right
   else: discard
 
-proc appAttach {.exportc.} = 
+proc storyTellerAttach {.exportc.} = 
   window.addEventListener    "keydown", onkeydownEventHandler
 
-proc appDetach {.exportc.} = 
+proc storyTellerDetach {.exportc.} = 
   window.removeEventListener "keydown", onkeydownEventHandler
-
-
-
-when isMainModule:
-  runApp()

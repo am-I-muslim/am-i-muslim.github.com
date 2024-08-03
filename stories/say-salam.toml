@@ -2,7 +2,7 @@ title = ""
 
 [characters]
 [characters.brain]
-image = "brain.ong"
+image = "brain.png"
 
 [characters.you]
 image = "ave.png"
@@ -15,63 +15,59 @@ image = "prophet.png"
 
 [scenes]
 [scenes.start]
-type = "text"
 next = "selfie"
 who = "you"
-message = """
+text = """
   پوففففف بالاخره بعد از کلی درس و چیزای الکی اومدم بیرون یکم هوا بخورم
 """
 
 [scenes.selfie]
-type = 'image'
 next = "good-weather"
 who = "no-one"
-url = "self.png"
+image = "self.png"
 width = 400
 pixel-art = true
 
 [scenes.good-weather]
-type = "text"
 next = "3rd-view"
 who = "you"
-message = """
+text = """
   واقعا هوای خوبیه امروز
 """
 
 [scenes.3rd-view]
 who = "no-one"
 next = "saw-other-one"
-url = "park.png"
+image = "park.png"
 width = 800
 pixel-art = true
 
 [scenes.saw-other-one]
-type = "text"
 next = "what-to-do"
 who = "you"
-message = """
+text = """
   عه این پسره!
   این بشر همکلاسی منه.
   حالا چیکار کنم؟
 """
 
 [scenes.what-to-do]
-character = "brain"
+who = "brain"
 
 [[scenes.what-to-do.options]]
-label =  "ولش کن، سرت رو بنداز پایین و رد شو"
+text = "ولش کن، سرت رو بنداز پایین و رد شو"
 next = "hadith"
 
 [[scenes.what-to-do.options]]
-label = "بزار ببینم انقد ادب داره که سلام کنه؟"
+text = "بزار ببینم انقد ادب داره که سلام کنه؟"
 next = "hadith"
 
 [[scenes.what-to-do.options]]
-label = "سلام کن"
+text = "سلام کن"
 next = "hadith"
 
 [scenes.hadith]
 who = "prophet"
 next = "done"
-url = "salam-hadis.jpg"
+image = "salam-hadis.jpg"
 width = 800

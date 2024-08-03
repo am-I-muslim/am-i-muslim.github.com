@@ -34,3 +34,10 @@ up.macro('[smooth-link]', link => {
 up.compiler('[fa-digits]', element => {
   element.innerHTML = element.innerHTML.replace(/\d/gmi, toPersianNumber)
 })
+
+
+up.compiler('#story-table-container', element => {
+  storyTellerAttach()
+  runStoryTeller()
+  return storyTellerDetach
+})

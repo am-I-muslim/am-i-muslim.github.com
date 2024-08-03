@@ -64,22 +64,19 @@ type # ----- structures
     text*:     string
     next*:     SceneId
 
-  Scene*       = ref object
+  Character*  = object
+    pfp*:  Url
+    name*: string
+
+  Scene*       = object
     id*:        SceneId
     character*: string
     msg*:       Message
 
-  Character*  = ref object
-    pfp*:  Url
-    name*: string
-
-  Narrative*  = Table[SceneId, Scene]
-
-  Story*      = object
+  Story*      = ref object
     title*:      string
-    starter*:    SceneId
     characters*: Table[string, Character] # character name => profile picture
-    narrative*:  Narrative
+    scenes*:  Table[SceneId, Scene]
 
   StoryCtx* = ref object
     story*:   Story
