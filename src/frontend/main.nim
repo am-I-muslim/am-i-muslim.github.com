@@ -1,7 +1,21 @@
 import std/[strutils, tables, random]
-import std/[jsconsole, dom]
+import std/[jsconsole, jsffi, dom]
+
+import parsetoml
 
 import ./[types, page, utils]
+
+# -------------------------------------
+
+var ctx: StoryCtx
+
+# -------------------------------------
+
+proc parseStory(t: TomlValueRef): Story = 
+  console.log t
+
+proc parseToml(s: string): TomlValueRef = 
+  parsetoml.parseString s
 
 # -------------------------------------
 
@@ -66,6 +80,7 @@ proc choisesHtml(sceneid: string, pfp: string, options: seq[OptionItem]): Elemen
       avatar
   tr
 
+# -------------------------------------
 
 const publicDir = "../public/"
 
@@ -105,9 +120,6 @@ proc tell(ctx: StoryCtx, container: Element) =
       appendChild container, contentEl
 
 
-var ctx: StoryCtx
-
-
 template currentScene: untyped =
   ctx.story.narrative[ctx.history[^1]]
   
@@ -135,151 +147,48 @@ proc choose_option(optionIndex: int) {.exportc.} =
 
 # -------------------------------------
 
-# func toNarrative(s: string): Narrative = 
-#   discard
+proc downloadFrom(url: cstring, succeed: proc(content: cstring), failed: proc()) {.importc.}
+
+proc storyFileUrl(storyName: cstring): cstring = 
+  c"//"                & 
+  window.location.host & 
+  c"/stories/"         &
+  storyName            &  
+  ".toml"
+
+
+proc downloadStory = 
+  let url = storyFileUrl window.location.search.substr(1) 
+    
+  proc ifSucceed(content: cstring) = 
+    ctx = StoryCtx(
+      story: parseStory parseToml content,
+      key: "start")
+
+  proc ifFailed = 
+    echo "cannot download story ..."
+
+  downloadFrom url, ifSucceed, ifFailed
+
+proc runApp {.exportc.} = 
+  prepare()
+  downloadStory()
+
+
+proc onkeydownEventHandler(e: Event) = 
+  let kc = cast[KeyboardEvent](e).keycode
+  case kc
+  of 37: previe() # left
+  of 39: nextie() # right
+  else: discard
+
+proc appAttach {.exportc.} = 
+  window.addEventListener    "keydown", onkeydownEventHandler
+
+proc appDetach {.exportc.} = 
+  window.removeEventListener "keydown", onkeydownEventHandler
+
+
 
 when isMainModule:
-  prepare()
-
-  let story = Story(
-    starter: "start",
-    characters: toTable {
-      "brain": Character(
-        name: "brain",
-        pfp:  "brain.png"
-      ),
-      "you": Character(
-        name: "you",
-        pfp:  "ave.png",
-      ),
-      "no one": Character(
-        name: "no one",
-        pfp:  "nothing.png",
-      ),
-      "prophet": Character(
-        name: "prophet",
-        pfp:  "prophet.png",
-      ),
-    },
-    narrative: toTable {
-      "start": Scene(
-        id:        "selfie", 
-        character: "you",
-        msg:        Message(
-          kind: mkContent,
-          next: "selfie",
-          content: Content(
-            kind: ckText,
-            text: strip """
-              پوففففف بالاخره بعد از کلی درس و چیزای الکی اومدم بیرون یکم هوا بخورم              
-            """,
-          )
-        )
-      ),
-      "selfie": Scene(
-        id:        "start", 
-        character: "no one",
-        msg:        Message(
-          kind: mkContent,
-          next: "good-weather",
-          content: Content(
-            kind: ckImage,
-            style: isPixelArt,
-            maxWidth: 600,
-            imageUrl: "self.png",
-          ),
-        )
-      ),
-      "good-weather": Scene(
-        id:        "good-weather", 
-        character: "you",
-        msg:        Message(
-          kind: mkContent,
-          next: "3rd-view",
-          content: Content(
-            kind: ckText,
-            text: strip """
-              واقعا هوای خوبیه امروز
-            """
-          )
-        )
-      ),
-      "3rd-view": Scene(
-        id:        "3rd-view", 
-        character: "no one",
-        msg:        Message(
-          kind: mkContent,
-          next: "saw-other-one",
-          content: Content(
-            kind: ckImage,
-            style: isPixelArt,
-            maxWidth: 800,
-            imageUrl: "park.png",
-          )
-        )
-      ),
-      "saw-other-one": Scene(
-        id:        "saw-other-one", 
-        character: "you",
-        msg:        Message(
-          kind: mkContent,
-          next: "what-to-do",
-          content: Content(
-            kind: ckText,
-            text: strip """
-              عه این پسره!
-              این بشر همکلاسی منه.
-              حالا چیکار کنم؟
-            """
-          )
-        )
-      ),
-      "what-to-do": Scene(
-        id:        "what-to-do", 
-        character: "brain",
-        msg:        Message(
-          kind: mkOptions,
-          options: @[
-            OptionItem(
-              text:"ولش کن، سرت رو بنداز پایین و رد شو",
-              next:"hadith",
-            ),
-            OptionItem(
-              text:"بزار ببینم انقد ادب داره که سلام کنه؟",
-              next:"hadith",
-            ),
-            OptionItem(
-              text:"سلام کن",
-              next:"hadith",
-            ),
-          ]
-        )
-      ),
-      "hadith": Scene(
-        id:        "hadith", 
-        character: "prophet",
-        msg:        Message(
-          kind: mkContent,
-          next: "done",
-          content: Content(
-            kind: ckImage,
-            style: isPixelArt,
-            maxWidth: 800,
-            imageUrl: "salam-hadis.jpg",
-          )
-        )
-      ),
-    },
-  )
-
-  ctx = StoryCtx(
-    story: story,
-    key: story.starter)
-
-
-  window.addEventListener "keydown", proc (e: Event) = 
-    let kc = cast[KeyboardEvent](e).keycode
-    case kc
-    of 37: previe() # left
-    of 39: nextie() # right
-    else: discard
+  runApp()

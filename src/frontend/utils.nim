@@ -10,6 +10,7 @@ template c*(s: string): cstring =
 proc charAt* (t: cstring, i: int)    : cstring {.importcpp.}
 proc indexOf*(a, b: cstring)         : int     {.importcpp.}
 proc substr* (s: cstring, i, l: int) : cstring {.importcpp.}
+proc substr* (s: cstring, i   : int) : cstring {.importcpp.}
 func trim*   (s: cstring)            : cstring {.importcpp.}
 
 
