@@ -5,8 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>خانه</title>
-  <link rel="icon" href="/public/favicon.png" />
+  <title>داستان ها</title>
 
   <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -36,15 +35,19 @@
         </span>
       </h3>
 
-      <button class="btn btn-outline-danger btn-sm w-100 my-4">
-        <i class="bi bi-dice-3 me-1"></i>
-        <span class="fa">
-          شانسی
-        </span>
-      </button>
+      <div class="my-4">
+        <input type="text" class="form-control fa" placeholder="نام تگ یا موضوع رو برای جستجو وارد کنید">
+
+        <button class="btn btn-outline-danger btn-sm w-100 mt-1">
+          <i class="bi bi-dice-3 me-1"></i>
+          <span class="fa">
+            شانسی
+          </span>
+        </button>
+      </div>
 
       <div id="stories-table" up-defer up-href="/partials/stories-table.html">
-        ...
+        📑
       </div>
 
     </div>
