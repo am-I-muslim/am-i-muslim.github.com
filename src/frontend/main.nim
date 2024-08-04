@@ -156,8 +156,6 @@ proc choisesHtml(sceneid: string, pfp: string, options: seq[OptionItem]): Elemen
 
 # -------------------------------------
 
-const publicDir = "../public/"
-
 proc tell(ctx: StoryCtx, container: Element) = 
   if ctx.key != "done":
     let 
@@ -173,15 +171,15 @@ proc tell(ctx: StoryCtx, container: Element) =
       case msg.content.kind
       of ckText:
         var e = Env()
-        let contentEl = textContentHtml(ctx.key, publicDir & chara.pfp)
+        let contentEl = textContentHtml(ctx.key, chara.pfp)
         appendChild container, contentEl
         mockKeyboardType e, q(contentEl, ".text-wrapper"), 40, cstring msg.content.text
       
       of ckImage:
         let contentEl = imgContentHtml(
           ctx.key,
-          publicDir & chara.pfp, 
-          publicDir & msg.content.imageUrl, 
+          chara.pfp, 
+          msg.content.imageUrl, 
           msg.content.style,
           msg.content.maxWidth,
         )
@@ -190,7 +188,7 @@ proc tell(ctx: StoryCtx, container: Element) =
       ctx.key = msg.next
     
     of mkOptions:
-      let contentEl = choisesHtml(ctx.key, publicDir & chara.pfp, msg.options)
+      let contentEl = choisesHtml(ctx.key, chara.pfp, msg.options)
       appendChild container, contentEl
 
 

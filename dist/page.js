@@ -1,5 +1,5 @@
 function randInt(min, max) {
-  return Math.floor(Math.random() * (max - min) + min)
+  return Math.floor(Math.random() * (max - min)) + min
 }
 
 function toPersianNumber(string) {
@@ -38,7 +38,7 @@ up.macro('[smooth-link]', link => {
 up.macro('[choose-random-child]', element => {
   let i = randInt(0, element.childElementCount)
   let chosen = element.children[i]
-  element.replaceChildren(chosen)
+  chosen.classList.remove("d-none")
 })
 
 up.compiler('[fa-digits]', element => {
