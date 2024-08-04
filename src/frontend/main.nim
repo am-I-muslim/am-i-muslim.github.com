@@ -222,8 +222,6 @@ proc choose_option(optionIndex: int) {.exportc.} =
 proc downloadFrom(url: cstring, succeed: proc(content: cstring), failed: proc(err: JsObject)) {.importc.}
 
 proc storyFileUrl(storyName: cstring): cstring = 
-  c"//"                & 
-  window.location.host & 
   c"/stories/"         &
   storyName            &  
   ".toml"

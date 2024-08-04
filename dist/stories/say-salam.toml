@@ -2,16 +2,16 @@ title = ""
 
 [characters]
 [characters.brain]
-image = "/public/avatars/brain.png"
+image = "/media/avatars/brain.png"
 
 [characters.you]
-image = "/public/avatars/ave.png"
+image = "/media/avatars/ave.png"
 
 [characters.no-one]
-image = "/public/avatars/nothing.png"
+image = "/media/avatars/nothing.png"
 
 [characters.prophet]
-image = "/public/avatars/prophet.png"
+image = "/media/avatars/prophet.png"
 
 [scenes]
 [scenes.start]
@@ -24,7 +24,7 @@ text = """
 [scenes.selfie]
 next = "good-weather"
 who = "no-one"
-image = "/public/other/self.png"
+image = "/media/other/self.png"
 width = 400
 pixel-art = true
 
@@ -38,7 +38,7 @@ text = """
 [scenes.3rd-view]
 who = "no-one"
 next = "saw-other-one"
-image = "/public/other/park.png"
+image = "/media/other/park.png"
 width = 800
 pixel-art = true
 
@@ -69,5 +69,5 @@ next = "hadith"
 [scenes.hadith]
 who = "prophet"
 next = "done"
-image = "/public/hadith-graphy/salam.jpg"
+image = "/media/hadith-graphy/salam.jpg"
 width = 800

@@ -17,4 +17,4 @@ requires "macroplus"
 
 
 task gen, "":
-  exec "nim -d:nimExperimentalAsyncjsThen js -o:./dist/script.js src/frontend/main"
+  exec "nim -d:nimExperimentalAsyncjsThen js -o:./libs/script.js src/frontend/main"
