@@ -16,5 +16,8 @@ requires "nim >= 2.0.0"
 requires "macroplus"
 
 
-task gen, "":
-  exec "nim -d:nimExperimentalAsyncjsThen js -o:./libs/script.js src/frontend/main"
+task dev, "dev build":
+  exec "nim js -o:./dist/libs/script.js src/frontend/main"
+
+task rel, "release build":
+  exec "nim js -d:danger -o:./dist/libs/script.js src/frontend/main"
