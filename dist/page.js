@@ -1,3 +1,6 @@
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min) + min)
+}
 
 function toPersianNumber(string) {
   return {
@@ -21,6 +24,7 @@ function downloadFrom(url, succeed, failed) {
     .catch(failed)
 }
 
+
 // ------------------------------------
 
 up.macro('[smooth-link]', link => {
@@ -31,13 +35,23 @@ up.macro('[smooth-link]', link => {
   link.setAttribute('up-follow', '')
 })
 
+up.macro('[choose-random-child]', element => {
+  let i = randInt(0, element.childElementCount)
+  let chosen = element.children[i]
+  element.replaceChildren(chosen)
+})
+
 up.compiler('[fa-digits]', element => {
   element.innerHTML = element.innerHTML.replace(/\d/gmi, toPersianNumber)
 })
 
-
 up.compiler('#story-table-container', element => {
-  storyTellerAttach()
+  // https://github.com/nim-lang/Nim/issues/23921
+  const
+    attachStoryTeller = () => window.addEventListener("keydown", onkeydownEventHandlerStoryTeller),
+    deattachStoryTeller = () => window.removeEventListener("keydown", onkeydownEventHandlerStoryTeller)
+
+  attachStoryTeller()
   runStoryTeller()
-  return storyTellerDetach
+  return deattachStoryTeller
 })

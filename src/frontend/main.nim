@@ -250,15 +250,9 @@ proc runStoryTeller {.exportc.} =
   downloadStory()
 
 
-proc onkeydownEventHandler(e: Event) =
+proc onkeydownEventHandlerStoryTeller(e: Event) {.exportc.} =
   let kc = cast[KeyboardEvent](e).keycode
   case kc
   of 37: previe() # left
   of 39: nextie() # right
   else: discard
-
-proc storyTellerAttach {.exportc.} = 
-  window.addEventListener    "keydown", onkeydownEventHandler
-
-proc storyTellerDetach {.exportc.} = 
-  window.removeEventListener "keydown", onkeydownEventHandler
