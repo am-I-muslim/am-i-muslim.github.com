@@ -69,5 +69,5 @@ next = "hadith"
 [scenes.hadith]
 who = "prophet"
 next = "done"
-image = "/media/hadith-graphy/salam.jpg"
+image = "salam-spreads-love.webp"
 width = 800

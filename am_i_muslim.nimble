@@ -19,5 +19,6 @@ requires "macroplus"
 task dev, "dev build":
   exec "nim js -o:./dist/libs/script.js src/frontend/main"
 
-task rel, "release build":
-  exec "nim js -d:danger -o:./dist/libs/script.js src/frontend/main"
+# randomize() proc in random module with -d:release does not work
+# task rel, "release build":
+#   exec "nim js -d:danger -o:./dist/libs/script.js src/frontend/main"

@@ -14,7 +14,7 @@
 
 ```sh
 nimble gen
-http-server ./dist/
+http-server -c-1 ./dist/
 ```
 
 ## Tech Stack
@@ -34,4 +34,4 @@ http-server ./dist/
 
 ## TODO
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del
-
+- [squoosh | image compressor](https://squoosh.app/)
