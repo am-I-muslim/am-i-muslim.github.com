@@ -38,7 +38,7 @@ up.macro('[smooth-link]', link => {
 up.macro('[choose-random-child]', element => {
   let i = randInt(0, element.childElementCount)
   let chosen = element.children[i]
-  chosen.classList.remove("d-none")
+  element.replaceChildren(chosen)
 })
 
 up.compiler('[fa-digits]', element => {
