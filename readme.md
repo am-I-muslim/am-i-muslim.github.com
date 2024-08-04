@@ -1,4 +1,6 @@
-# am I Muslim?
+# am I Muslim? | آیا من یک مسلمان هستم؟
+برای دیدن سایت به آدرس زیر مراجعه کنید:
+https://am-i-muslim.github.io/
 
 ## Run
 
