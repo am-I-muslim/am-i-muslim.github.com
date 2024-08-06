@@ -55,3 +55,11 @@ up.compiler('#story-table-container', element => {
   runStoryTeller()
   return deattachStoryTeller
 })
+
+
+function popConfetti() {
+  confetti({
+    particleCount: 50,
+    spread: 10,
+  })
+}

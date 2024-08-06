@@ -14,6 +14,9 @@ http-server -c-1 ./dist/
 ### Frameworks
 - unpoly
 
+### Libraries
+- [confetti js](https://confetti.js.org/more.html) 
+
 ### Progrmming Languages
 - Nim
 - JavaScript
