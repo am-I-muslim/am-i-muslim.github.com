@@ -1,3 +1,8 @@
+/* :root {
+  --bs-btn-hover-bg: crimson !important;
+  --bs-btn-hover-border-color: crimson !important;
+} */
+
 .pixel-art {
   image-rendering: optimizeSpeed;
   /*                     */
@@ -31,6 +36,25 @@
 
 .mh-70 {
   max-height: 70vh;
+}
+
+.mh-50 {
+  max-height: 50vh;
+}
+
+mark {
+  border-radius: 8px;
+  /* background-color: palegreen; */
+  background-color: mistyrose;
+}
+
+a {
+  color: crimson;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 /* fonts ----------------------------------------------- */
@@ -100,6 +124,7 @@
 }
 
 @keyframes bounce {
+
   from,
   to {
     /* animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); */
@@ -125,6 +150,6 @@
   animation-fill-mode: both;
 }
 
-.loop{
+.loop {
   animation-iteration-count: infinite;
 }

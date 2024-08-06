@@ -55,3 +55,14 @@ up.compiler('#story-table-container', element => {
   runStoryTeller()
   return deattachStoryTeller
 })
+
+
+function popConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 10,
+  })
+}
+
+// TODO use dedicated confetti canvas to make sure confetti works fine
+// custom canvas: https://confetti.js.org/more.html 
