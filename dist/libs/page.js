@@ -63,3 +63,6 @@ function popConfetti() {
     spread: 10,
   })
 }
+
+// TODO use dedicated confetti canvas to make sure confetti works fine
+// custom canvas: https://confetti.js.org/more.html 
