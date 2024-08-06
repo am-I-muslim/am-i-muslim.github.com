@@ -32,6 +32,7 @@ http-server -c-1 ./dist/
 
 
 ## TODO
+- github caches assets, maybe you should name mangle or something
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del
 
 
