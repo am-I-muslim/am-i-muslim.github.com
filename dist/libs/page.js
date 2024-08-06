@@ -59,7 +59,7 @@ up.compiler('#story-table-container', element => {
 
 function popConfetti() {
   confetti({
-    particleCount: 50,
+    particleCount: 100,
     spread: 10,
   })
 }
