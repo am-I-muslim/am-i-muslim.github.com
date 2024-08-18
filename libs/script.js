@@ -9710,14 +9710,14 @@ function runStoryTeller() {
 function onkeydownEventHandlerStoryTeller(e_p0) {
   var F = {procname: "main.onkeydownEventHandlerStoryTeller", prev: framePtr, filename: "C:\\Users\\HamidB80\\Documents\\programming\\am-i-muslim\\src\\frontend\\main.nim", line: 0};
   framePtr = F;
-    F.line = 250;
+    F.line = 249;
     F.filename = "main.nim";
     var kc_536876675 = e_p0.keyCode;
-    F.line = 251;
-    if (    kc_536876675 == 37    ){      F.line = 252;
+    F.line = 250;
+    if (    kc_536876675 == 37    ){      F.line = 251;
       previe();
       }
-    else if (    kc_536876675 == 39    ){      F.line = 253;
+    else if (    kc_536876675 == 39    ){      F.line = 252;
       nextie();
       }
     else{
