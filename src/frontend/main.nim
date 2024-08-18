@@ -104,7 +104,7 @@ proc textContentHtml(sceneid: string, pfp: Url): Element =
   let 
     tr      = createElement("tr",   {"id": msgId sceneid })
     td1     = createElement("td",   {"class": "align-middle", "dir": "auto"})
-    span    = createElement("span", {"class": "text-wrapper text-break text-secondary"})
+    span    = createElement("span", {"class": "text-wrapper text-break text-dark"})
     td2     = createElement("td",   {"class": "avatar-cell"})
     avatar  = createElement("img",  {"class": "pixel-art avatar fade-in", "src": pfp})
 
