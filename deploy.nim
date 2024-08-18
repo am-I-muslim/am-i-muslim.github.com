@@ -6,7 +6,10 @@ template cpdir(src, dest): untyped =
 
 template exec(cmd): untyped =
   echo ">> ", cmd
-  discard execShellCmd cmd
+  let r = execShellCmd cmd
+  if r != 0:
+    write stderr, "[STATUS CODE] = " & $r
+    quit r
   
 
 when isMainModule:
@@ -22,5 +25,5 @@ when isMainModule:
   cpdir   "../dist", "./"
   exec    "git add ."  
   exec    "git commit -m \".\""  
-  # exec    "git push"  
-  # exec    "git checkout main"  
+  exec    "git push"  
+  exec    "git checkout main"  
