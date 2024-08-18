@@ -14,7 +14,7 @@ when isMainModule:
   let msg = readLine stdin
 
   exec    "git add ."
-  exec    "git commit -m '" & msg & "'"
+  exec    "git commit -m \"" & msg & '"'
   exec    "git push"
   exec    "nimble dev"
   cpdir   "./dist", "../dist"
