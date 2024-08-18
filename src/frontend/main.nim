@@ -245,7 +245,6 @@ proc runStoryTeller {.exportc.} =
   prepare()
   downloadStory()
 
-
 proc onkeydownEventHandlerStoryTeller(e: Event) {.exportc.} =
   let kc = cast[KeyboardEvent](e).keycode
   case kc
