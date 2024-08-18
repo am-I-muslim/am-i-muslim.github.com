@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>درباره ما</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/unpoly@3.8.0/unpoly.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/unpoly@3.8.0/unpoly.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="/libs/style.css">
+  <script src="/libs/page.js" defer> </script>
+  <script src="/libs/script.js" defer> </script>
+
+</head>
+
+
+<body>
+
+  <main>
+
+    <div class="container">
+
+      <h3 class="fa text-center text-secondary my-4">
+        <i class="bi bi-person-arms-up"></i>
+        <span>
+          درباره ما
+        </span>
+      </h3>
+
+      <section class="my-4">
+
+        <div class="card border-secondary my-4 shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title" dir="auto">
+              <i class="bi bi-info-square"></i>
+              <span class="mx-2 fa">
+                این سایت دقیقا چیه؟
+              </span>
+            </h4>
+            <div class="card-text text-dark fa">
+              <p>
+                وب سایت "آیا من یک مسلمان هستم" با هدف
+                آشنا کردن بیشتر عموم مردم با دین اسلام ایجاد شده
+              </p>
+
+              <p>
+                انگیزه اصلی برای ایجاد این سایت این بود که
+                خیلی از مردم خودشون رو مسلمون می‌دونن
+                ولی با اسلام خیلی فاصله دارن.
+
+                این قضیه باعث به وجود اومدن دوگانگی توی ذهن افراد می‌شه،
+                که واقعا مسلمون چه کسیه؟
+              </p>
+
+              <p>
+                بیایید باهم برای معضل اجتماعی دین گریزی دعا کنیم
+              </p>
+
+              <center>
+                <button class="btn btn-outline-primary fa" onclick="popConfetti()">
+                  آمین
+                  🙏
+                </button>
+              </center>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-warning my-4 shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title" dir="auto">
+              <i class="bi bi-image"></i>
+              <span class="fa mx-2">
+                تصاویری که توی سایت استفاده کردید رو از کجا تهیه می‌کنید؟
+              </span>
+            </h4>
+            <div class="card-text text-dark fa">
+              <p>
+                تصاویر گرافیکی معمولا از سایت های مختلف به عناوینی
+                مثل حدیث گرافی یا آیه گرافی دانلود می‌شن.
+                با جستجوی این عبارت ها می‌تونید خودتون هم این تصویر رو توی اینترنت پیدا کنید
+              </p>
+
+              <p>
+                اما بیشتر تصاویری که توی داستان ها استفاده می‌شن
+                توسط خودمون طراحی شده
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-danger my-4 shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title" dir="auto">
+              <i class="bi bi-lightbulb"></i>
+              <span class="fa mx-2">
+                من انتقاد/پیشنهاد/ایده دارم
+              </span>
+            </h4>
+            <div class="card-text text-dark fa">
+              <p>
+                خیلی خوبه که برای بهتر شدن این برنامه به فکر هستی!
+                برای بیان‌شون به این آیدی توی پیام‌رسان های روبیکا یا بله پیام بده:
+
+                <bdo dir="ltr"><code>@hamidb80</code></bdo>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-info my-4 shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title" dir="auto">
+              <i class="bi bi-github"></i>
+              <span class="fa mx-2">
+                آیا این سایت متن بازه؟
+              </span>
+            </h4>
+            <div class="card-text text-dark fa">
+              <p>
+                بله
+                می‌تونی کدش رو
+                <a href="https://github.com/am-I-muslim/am-I-muslim" target="_blank">اینجا</a>
+                پیدا کنی
+              </p>
+              <p>
+                همه تصاویر و محتوای استفاده شده اونجا موجوده
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-success my-4 shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title" dir="auto">
+              <i class="bi bi-cash-stack"></i>
+              <span class="fa mx-2">
+                چقد هزینه نگه داری سایت می‌شه؟
+              </span>
+            </h4>
+            <div class="card-text text-dark fa">
+              <p>
+                در حال حاضر این سایت توسط سرور های
+                <a href="https://github.com/">Github</a>
+                میزبانی می‌شه و رایگان هست
+              </p>
+              <p>
+                دلیل رایگان بودنش اینه که امکانات کمی داره
+                ولی فعلا جواب‌گوی کار من هست
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>
