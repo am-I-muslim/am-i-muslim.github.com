@@ -1,7 +1,7 @@
 import std/os
 
 
-template exec(cmd): untyped =
+proc exec(cmd: string) =
   echo ">> ", cmd
   let r = execShellCmd cmd
   if r != 0:
