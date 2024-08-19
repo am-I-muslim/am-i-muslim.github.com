@@ -4,9 +4,9 @@ import std/os
 proc exec(cmd: string) =
   echo ">> ", cmd
   let r = execShellCmd cmd
+
   if r != 0:
     write stderr, "[STATUS CODE] = " & $r
-    quit r
 
 proc cp(src, dest: string) = 
   case src[^1]
